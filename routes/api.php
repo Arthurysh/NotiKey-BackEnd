@@ -23,3 +23,6 @@ Route::post('/Registration', 'RegisterController@register');
 Route::post('/Login', 'LoginController@login');
 Route::post('/Logout', 'LoginController@logout');
 Route::post('/UpdateUser', 'UpdateUserController@update');
+Route::post('/createStation', 'StationController@create');
+Route::post('/deleteStation', 'StationController@delete');
+Route::get('/stationInfo', 'StationController@view');
