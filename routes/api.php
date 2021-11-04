@@ -25,4 +25,5 @@ Route::post('/Logout', 'LoginController@logout');
 Route::post('/UpdateUser', 'UpdateUserController@update');
 Route::post('/createStation', 'StationController@create');
 Route::post('/deleteStation', 'StationController@delete');
+Route::post('/editStation','StationController@edit');
 Route::get('/stationInfo', 'StationController@view');

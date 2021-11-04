@@ -33,7 +33,15 @@ class StationController extends Controller
     }
     public function delete(Request $request)
     {
-      $station = DB::table('stations')->where('stationID', $request->stationID)->delete();
-
+      DB::table('stations')->where('stationID', $request->Id)->delete();
+    }
+    public function edit(Request $request)
+    {
+      DB::table('stations')
+      ->where('stationID', $request->stationID)
+      ->update(
+          ['stationID' => $request->stationID, 'name' => $request->name, 'adress' => $request->adress, 'description' => $request->description],
+          
+      );
     }
 }
