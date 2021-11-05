@@ -20,8 +20,9 @@ class UpdateUserController extends Controller
                 'name' => ['required'],
                 'email' => ['required', 'email'],
                 'surname' => ['required'],
-                'phone' => ['required'],
-                'password' => ['required', 'min:8']
+                'phone' => ['required','min:12', 'numeric'],
+                'password' => ['required', 'min:8'],
+                'birthday' => ['required'],
             ]);
 
 
@@ -30,6 +31,7 @@ class UpdateUserController extends Controller
             $user->surname = $request->input('surname','');
             $user->email = $request->input('email','');
             $user->phone = $request->input('phone','');
+            $user->birthday = $request->input('birthday','');
             $user->password = Hash::make($request->password);
 
 
