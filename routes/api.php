@@ -26,4 +26,5 @@ Route::post('/UpdateUser', 'UpdateUserController@update');
 Route::post('/createStation', 'StationController@create');
 Route::post('/deleteStation', 'StationController@delete');
 Route::post('/editStation','StationController@edit');
+Route::get('/recordsInfo', 'RecordsController@view');
 Route::get('/stationInfo', 'StationController@view');
