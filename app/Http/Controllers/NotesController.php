@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RecordsController extends Controller
+class NotesController extends Controller
 {
     public function view()
     {
-      $records = DB::table('records')->get();
-       return $records;
+      $notes = DB::table('notes')->get();
+       return $notes;
 
     }
 

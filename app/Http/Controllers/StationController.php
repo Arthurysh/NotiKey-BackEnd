@@ -11,14 +11,12 @@ class StationController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'stationID' => ['required'],
             'name' => ['required'],
             'adress' => ['required'],
             'description' => ['required'],
         ]);
 
         DB::table('stations')->insert([
-            'stationID' => $request->stationID,
             'name' => $request->name,
             'adress' => $request->adress,
             'description' => $request->description,
@@ -33,14 +31,14 @@ class StationController extends Controller
     }
     public function delete(Request $request)
     {
-      DB::table('stations')->where('stationID', $request->Id)->delete();
+      DB::table('stations')->where('stationId', $request->stationId)->delete();
     }
     public function edit(Request $request)
     {
       DB::table('stations')
-      ->where('stationID', $request->stationID)
+      ->where('stationId', $request->stationId)
       ->update(
-          ['stationID' => $request->stationID, 'name' => $request->name, 'adress' => $request->adress, 'description' => $request->description],
+          ['stationId' => $request->stationId, 'name' => $request->name, 'adress' => $request->adress, 'description' => $request->description],
           
       );
     }
