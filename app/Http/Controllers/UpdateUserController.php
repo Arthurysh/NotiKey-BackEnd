@@ -45,4 +45,9 @@ class UpdateUserController extends Controller
 
         
     }
+
+    public function getUsers(Request $request){
+        $station = DB::table('users')->select('id', 'name', 'surname', 'phone', 'email', 'birthday')->where('user_role', 'User')->get();
+        return $station;
+    }
 }

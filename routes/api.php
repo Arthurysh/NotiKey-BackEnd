@@ -28,3 +28,4 @@ Route::post('/deleteStation', 'StationController@delete');
 Route::post('/editStation','StationController@edit');
 Route::get('/recordsInfo', 'RecordsController@view');
 Route::get('/stationInfo', 'StationController@view');
+Route::get('/getUserList', 'UpdateUserController@getUsers');
