@@ -10,6 +10,8 @@ class NotesController extends Controller
     {
       $notes = DB::table('notes')
       ->join('status', 'notes.statusId', '=', 'status.statusId')
+      ->join('stations', 'notes.stationId', '=', 'stations.stationId')
+      ->join('services', 'notes.servicesId', '=', 'services.servicesId')
       ->get();
        return $notes;
 
