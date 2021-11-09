@@ -60,4 +60,13 @@ class UpdateUserController extends Controller
           
       );
     }
+    public function updateProfileMobile(Request $request)
+    {
+      DB::table('users')
+      ->where('userId', $request->userId)
+      ->update(
+          ['name' => $request->name, 'surname' => $request->surname, 'phone' => $request->phone, 'email' => $request->email, 'birthday' => $request->birthday],
+          
+      );
+    }
 }
