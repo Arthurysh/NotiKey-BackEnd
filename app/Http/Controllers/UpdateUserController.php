@@ -70,11 +70,12 @@ class UpdateUserController extends Controller
       );
     }
     
-    public function getUsersMobile(Request $request)
+    public function getUsersMobile(Request $userId)
     {
       $userMobile = DB::table('users')
-      ->where('userId', $request->userId)
-      ->get(['name', 'surname', 'phone', 'email', 'birthday']);
+      ->select('userId', 'name', 'surname', 'phone', 'email', 'birthday')
+      ->where('userId', $userId->userId)
+      ->get();
       return $userMobile;
     }
 }

@@ -8,7 +8,9 @@ class NotesController extends Controller
 {
     public function view()
     {
-      $notes = DB::table('notes')->get();
+      $notes = DB::table('notes')
+      ->join('status', 'notes.statusId', '=', 'status.statusId')
+      ->get();
        return $notes;
 
     }
