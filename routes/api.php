@@ -31,4 +31,4 @@ Route::post('/updateUserMobile', 'UpdateUserController@updateProfileMobile');
 Route::get('/notesInfo', 'NotesController@view');
 Route::get('/stationInfo', 'StationController@view');
 Route::get('/getUserList', 'UpdateUserController@getUsers');
-Route::get('/getUserMobile/{id?}', 'UpdateUserController@getUsersMobile');
+Route::get('/getUserMobile/{userId?}', 'UpdateUserController@getUsersMobile');
