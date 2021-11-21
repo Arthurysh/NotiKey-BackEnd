@@ -11,13 +11,13 @@ class StationController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
+            'stationName' => ['required'],
             'adress' => ['required'],
             'description' => ['required'],
         ]);
 
         DB::table('stations')->insert([
-            'name' => $request->name,
+            'stationName' => $request->stationName,
             'adress' => $request->adress,
             'description' => $request->description,
         ]);
@@ -38,7 +38,7 @@ class StationController extends Controller
       DB::table('stations')
       ->where('stationId', $request->stationId)
       ->update(
-          ['stationId' => $request->stationId, 'name' => $request->name, 'adress' => $request->adress, 'description' => $request->description],
+          ['stationId' => $request->stationId, 'stationName' => $request->stationName, 'adress' => $request->adress, 'description' => $request->description],
           
       );
     }
