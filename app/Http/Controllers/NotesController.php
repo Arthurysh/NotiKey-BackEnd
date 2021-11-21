@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\DB;
 
 class NotesController extends Controller
 {
-    public function view()
+    public function view(Request $userId)
     {
       $notes = DB::table('notes')
       ->join('status', 'notes.statusId', '=', 'status.statusId')
       ->join('stations', 'notes.stationId', '=', 'stations.stationId')
       ->join('cars', 'notes.carId', '=', 'cars.carId')
-      // ->join('notes_services', 'notes.noteId', '=', 'notes_services.noteId')
-      // ->join('services', 'notes_services.servicesId', '=', 'services.servicesId')
+      ->where('notes.userId', $userId->userId)
       ->get();
 
       foreach ($notes as $note) {
@@ -29,8 +28,8 @@ class NotesController extends Controller
       // ->join('notes', 'notes_services.noteId', '=', 'notes.noteId')
       // ->join('services', 'notes_services.servicesId', '=', 'services.servicesId')
       // ->get();
-
       return $notes;
+      
     }
 
     
