@@ -29,6 +29,14 @@ class StationController extends Controller
        return $station;
 
     }
+    public function getList()
+    {
+      $station = DB::table('stations')
+      ->select('stationName')
+      ->get();
+       return $station;
+
+    }
     public function delete(Request $request)
     {
       DB::table('stations')->where('stationId', $request->stationId)->delete();

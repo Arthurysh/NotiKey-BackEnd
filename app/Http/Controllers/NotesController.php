@@ -13,6 +13,7 @@ class NotesController extends Controller
       ->join('stations', 'notes.stationId', '=', 'stations.stationId')
       ->join('cars', 'notes.carId', '=', 'cars.carId')
       ->where('notes.userId', $userId->userId)
+      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'notes.time',  'status.status'  )
       ->get();
 
       foreach ($notes as $note) {
@@ -27,6 +28,12 @@ class NotesController extends Controller
         ->where('statusHistory.noteId', $note->noteId)
         ->select('status.status')
         ->get();
+
+        $note->additionalServices = DB::table('additional_services')
+        ->join('additionalServices', 'additional_services.addServicesId', '=', 'additionalServices.addServicesId')
+        ->where('additionalServices.noteId', $note->noteId)
+        ->get();
+
       }
       
       

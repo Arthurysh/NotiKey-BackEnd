@@ -33,5 +33,6 @@ Route::get('/stationInfo', 'StationController@view');
 Route::get('/getUserList', 'UpdateUserController@getUsers');
 Route::get('/getUserMobile/{userId?}', 'UpdateUserController@getUsersMobile');
 Route::get('/getStatus', 'NotesController@getStatus');
+Route::get('/getListStation', 'StationController@getList');
 
 
