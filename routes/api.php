@@ -34,5 +34,7 @@ Route::get('/getUserList', 'UpdateUserController@getUsers');
 Route::get('/getUserMobile/{userId?}', 'UpdateUserController@getUsersMobile');
 Route::get('/getStatus', 'NotesController@getStatus');
 Route::get('/getListStation', 'StationController@getList');
+Route::get('/getListNameCars/{userId?}', 'CarsController@getList');
+Route::get('/getServicesList', 'NotesController@getServices');
 
 

@@ -49,6 +49,13 @@ class NotesController extends Controller
       ->get();
       return $status;
     }
+    public function getServices()
+    {
+      $status = DB::table('services')
+      ->get();
+      return $status;
+    }
+
 
 
 
