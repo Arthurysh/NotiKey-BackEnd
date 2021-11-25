@@ -12,8 +12,9 @@ class NotesController extends Controller
       ->join('status', 'notes.statusId', '=', 'status.statusId')
       ->join('stations', 'notes.stationId', '=', 'stations.stationId')
       ->join('cars', 'notes.carId', '=', 'cars.carId')
+      ->join('time', 'notes.timeId', '=', 'time.timeId')
       ->where('notes.userId', $userId->userId)
-      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'notes.time',  'status.status'  )
+      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status',  )
       ->get();
 
       foreach ($notes as $note) {
@@ -55,8 +56,45 @@ class NotesController extends Controller
       ->get();
       return $status;
     }
+    public function getTime()
+    {
+      $time = DB::table('time')
+      ->get();
+      return $time;
+    }
+    public function insertNotes(Request $request)
+    {
+      $request->validate([
+        'cars' => ['required'],
+        'date' => ['required'],
+        'services' => ['required'],
+        'station' => ['required'],
+        'time' => ['required']
+    ]);
 
+    DB::table('notes')->insert([
+        'carId' => $request->cars,
+        'stationId' => $request->station,
+        'timeId' => $request->time,
+        'date' => $request->date,
+        'userId' => $request->userId,
+        'statusId' => $request->statusId,
+    ]);
 
-
+    }
+    public function deleteNotes(Request $request){
+      DB::table('additionalServices')
+      ->where('noteId', $request->idNotes)
+      ->delete();
+      DB::table('notes_services')
+      ->where('noteId', $request->idNotes)
+      ->delete();
+      DB::table('statusHistory')
+      ->where('noteId', $request->idNotes)
+      ->delete();
+      DB::table('notes')
+      ->where('noteId', $request->idNotes)
+      ->delete();
+    }
 
 }

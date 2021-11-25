@@ -32,7 +32,7 @@ class StationController extends Controller
     public function getList()
     {
       $station = DB::table('stations')
-      ->select('stationName')
+      ->select('stationName', 'stationId')
       ->get();
        return $station;
 

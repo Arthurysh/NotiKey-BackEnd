@@ -9,7 +9,7 @@ class CarsController extends Controller
     public function getList(Request $userId)
     {
       $station = DB::table('cars')
-      ->select('model')
+      ->select('model', 'carId', 'brand')
       ->where('cars.userId', $userId->userId)
       ->get();
        return $station;
