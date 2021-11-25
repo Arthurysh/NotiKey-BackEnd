@@ -30,6 +30,39 @@ class NotesController extends Controller
         ->select('status.status')
         ->get();
 
+        if($note->status === 'Готово к оплате'){
+          // $localserv = DB::table('additional_services')
+          // ->join('additionalServices', 'additional_services.addServicesId', '=', 'additionalServices.addServicesId')
+          // ->where('additionalServices.noteId', $note->noteId)
+          // ->select('addServicesId')
+          // ->get();
+          // echo $localserv;
+          // $additionalServ = DB::table('additional_services')->get('addServicesId');
+          // $masLocal = [];
+          // foreach ($additionalServ as $value) {
+          //   if(in_array($values->addServicesId, $localserv)){
+          //     array_push($masLocal, $values->addServicesId);
+          //   }
+          // }
+          // foreach ($masLocal as $value) {
+          //   DB::table('additionalServices')
+          //    ->insert([
+          //    'noteId' => $note->noteId,
+          //    'addServicesId' => $value
+          //  ]);
+          // }
+          DB::table('additionalServices')
+           ->insert([
+             'noteId' => $note->noteId,
+             'addServicesId' => 1
+           ]);
+           DB::table('additionalServices')
+           ->insert([
+             'noteId' => $note->noteId,
+             'addServicesId' => 2
+           ]);
+        }
+        
         $note->additionalServices = DB::table('additional_services')
         ->join('additionalServices', 'additional_services.addServicesId', '=', 'additionalServices.addServicesId')
         ->where('additionalServices.noteId', $note->noteId)
@@ -80,6 +113,18 @@ class NotesController extends Controller
         'userId' => $request->userId,
         'statusId' => $request->statusId,
     ]);
+   $lastId = DB::table('notes')->latest('noteId')->value('noteId'); 
+   $listServices = $request->services;
+    foreach($listServices as $service){
+    DB::table('notes_services')
+    ->insert([
+    'noteId' => $lastId,
+    'servicesId' => $service["servicesId"],
+   ]);
+
+      
+   }
+
 
     }
     public function deleteNotes(Request $request){
