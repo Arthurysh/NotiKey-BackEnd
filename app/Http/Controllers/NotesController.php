@@ -31,36 +31,33 @@ class NotesController extends Controller
         ->get();
 
         if($note->status === 'Готово к оплате'){
-          // $localserv = DB::table('additional_services')
-          // ->join('additionalServices', 'additional_services.addServicesId', '=', 'additionalServices.addServicesId')
-          // ->where('additionalServices.noteId', $note->noteId)
-          // ->select('addServicesId')
-          // ->get();
-          // echo $localserv;
-          // $additionalServ = DB::table('additional_services')->get('addServicesId');
-          // $masLocal = [];
-          // foreach ($additionalServ as $value) {
-          //   if(in_array($values->addServicesId, $localserv)){
-          //     array_push($masLocal, $values->addServicesId);
-          //   }
-          // }
-          // foreach ($masLocal as $value) {
-          //   DB::table('additionalServices')
-          //    ->insert([
-          //    'noteId' => $note->noteId,
-          //    'addServicesId' => $value
-          //  ]);
-          // }
-          DB::table('additionalServices')
-           ->insert([
+          $localserv = DB::table('additional_services')
+          ->join('additionalServices', 'additional_services.addServicesId', '=', 'additionalServices.addServicesId')
+          ->where('additionalServices.noteId', $note->noteId)
+          ->select('additionalServices.addServicesId')
+          ->get();
+          $additionalServ = DB::table('additional_services')->get('addServicesId');
+          $masLocal = [];
+          $servicesIdAdditionalArray = [];
+          
+          foreach ($localserv as $value) {
+            $servIdLocal = $value->addServicesId;
+            array_push($servicesIdAdditionalArray, $servIdLocal);
+          }
+          
+          foreach ($additionalServ as $value) {
+            if(!in_array($value->addServicesId, $servicesIdAdditionalArray)){
+              array_push($masLocal, $value->addServicesId);
+            }
+          }
+          foreach ($masLocal as $value) {
+            DB::table('additionalServices')
+             ->insert([
              'noteId' => $note->noteId,
-             'addServicesId' => 1
+             'addServicesId' => $value
            ]);
-           DB::table('additionalServices')
-           ->insert([
-             'noteId' => $note->noteId,
-             'addServicesId' => 2
-           ]);
+          }
+          
         }
         
         $note->additionalServices = DB::table('additional_services')
