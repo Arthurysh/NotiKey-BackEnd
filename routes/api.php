@@ -30,6 +30,10 @@ Route::post('/updateUserList', 'UpdateUserController@updateList');
 Route::post('/updateUserMobile', 'UpdateUserController@updateProfileMobile');
 Route::post('/insertNotes', 'NotesController@insertNotes');
 Route::post('/deleteNotes', 'NotesController@deleteNotes');
+Route::post('/deleteCars', 'CarsController@deleteCars');
+Route::post('/addCars', 'CarsController@addCars');
+
+
 Route::get('/notesInfo/{userId?}', 'NotesController@view');
 Route::get('/stationInfo', 'StationController@view');
 Route::get('/getUserList', 'UpdateUserController@getUsers');
@@ -39,4 +43,12 @@ Route::get('/getListStation', 'StationController@getList');
 Route::get('/getListNameCars/{userId?}', 'CarsController@getList');
 Route::get('/getServicesList', 'NotesController@getServices');
 Route::get('/getTimeList', 'NotesController@getTime');
+Route::get('/getUserCars/{userId?}', 'CarsController@getUserCars');
+
+
+
+
+
+
+
 
