@@ -44,6 +44,7 @@ Route::get('/getListNameCars/{userId?}', 'CarsController@getList');
 Route::get('/getServicesList', 'NotesController@getServices');
 Route::get('/getTimeList', 'NotesController@getTime');
 Route::get('/getUserCars/{userId?}', 'CarsController@getUserCars');
+Route::get('/getDiscounts', 'DiscountController@getDiscountController');
 
 
 
