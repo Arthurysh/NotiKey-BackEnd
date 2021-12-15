@@ -29,4 +29,24 @@ class RegisterController extends Controller
             'user_role' => $request->user_role,
         ]);
     }
+    public function addUser(Request $request)
+    {
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users'],
+            'surname' => ['required'],
+            'phone' => ['required','min:12', 'numeric'],
+            'password' => ['required', 'min:8', 'confirmed']
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'surname' => $request->surname,
+            'birthday' => $request->birthday,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'user_role' => $request->user_role,
+        ]);
+    }
 }

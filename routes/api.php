@@ -32,7 +32,9 @@ Route::post('/insertNotes', 'NotesController@insertNotes');
 Route::post('/deleteNotes', 'NotesController@deleteNotes');
 Route::post('/deleteCars', 'CarsController@deleteCars');
 Route::post('/addCars', 'CarsController@addCars');
-
+Route::post('/addUserToSystem', 'RegisterController@addUser');
+Route::post('/addDiscount', 'DiscountController@addDiscount');
+Route::post('/deleteDiscount', 'DiscountController@deleteDiscount');
 
 Route::get('/notesInfo/{userId?}', 'NotesController@view');
 Route::get('/stationInfo', 'StationController@view');
@@ -45,6 +47,9 @@ Route::get('/getServicesList', 'NotesController@getServices');
 Route::get('/getTimeList', 'NotesController@getTime');
 Route::get('/getUserCars/{userId?}', 'CarsController@getUserCars');
 Route::get('/getDiscounts', 'DiscountController@getDiscountController');
+Route::get('/getDiscount/{stationId?}', 'DiscountController@getDiscountManager');
+
+
 
 
 
