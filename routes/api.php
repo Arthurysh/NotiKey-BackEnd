@@ -48,6 +48,11 @@ Route::get('/getTimeList', 'NotesController@getTime');
 Route::get('/getUserCars/{userId?}', 'CarsController@getUserCars');
 Route::get('/getDiscounts', 'DiscountController@getDiscountController');
 Route::get('/getDiscount/{stationId?}', 'DiscountController@getDiscountManager');
+Route::get('/getCarList', 'CarsController@getCarList');
+Route::get('/getUsersList', 'UpdateUserController@getUsersList');
+Route::get('/getListNotesUsers', 'NotesController@getListNotesUsers');
+
+
 
 
 

@@ -39,7 +39,15 @@ class CarsController extends Controller
         'nomera' => $request->nomera,
     ]);
     }
+    public function getCarList()
+    {
+      $cars = DB::table('cars')
+      ->select('carId', 'brand', 'model', 'userId', 'year', 'type', 'nomera')
+      ->get();
+       return $cars;
 
+    }
+    
 
     
 

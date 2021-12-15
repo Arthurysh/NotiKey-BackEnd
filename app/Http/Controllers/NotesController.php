@@ -138,5 +138,23 @@ class NotesController extends Controller
       ->where('noteId', $request->idNotes)
       ->delete();
     }
+    
+    public function getListNotesUsers()
+    {
+      $notes = DB::table('notes')
+      ->join('status', 'notes.statusId', '=', 'status.statusId')
+      ->join('stations', 'notes.stationId', '=', 'stations.stationId')
+      ->join('cars', 'notes.carId', '=', 'cars.carId')
+      ->join('time', 'notes.timeId', '=', 'time.timeId')
+      ->join('users', 'notes.userId', '=', 'users.userId')
+      ->select('notes.noteId', 'stations.stationName',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status', 'users.email' )
+      ->get();
 
+     
+        
+      
+      
+      return $notes;
+      
+    }
 }

@@ -78,4 +78,8 @@ class UpdateUserController extends Controller
       ->get();
       return $userMobile;
     }
+    public function getUsersList(Request $request){
+        $station = DB::table('users')->select('userId', 'name', 'surname', 'phone', 'email', 'birthday', 'user_role')->get();
+        return $station;
+    }
 }
