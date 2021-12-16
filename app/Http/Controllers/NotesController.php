@@ -118,6 +118,11 @@ class NotesController extends Controller
     'noteId' => $lastId,
     'servicesId' => $service["servicesId"],
    ]);
+   DB::table('statusHistory')
+    ->insert([
+    'noteId' => $lastId,
+    'statusId' => '1',
+   ]);
 
       
    }
