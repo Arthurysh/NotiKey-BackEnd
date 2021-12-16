@@ -51,6 +51,8 @@ Route::get('/getDiscount/{stationId?}', 'DiscountController@getDiscountManager')
 Route::get('/getCarList', 'CarsController@getCarList');
 Route::get('/getUsersList', 'UpdateUserController@getUsersList');
 Route::get('/getListNotesUsers', 'NotesController@getListNotesUsers');
+Route::get('/managerViewNotes/{stationId?}', 'NotesController@managerViewNotes');
+
 
 
 
