@@ -254,4 +254,18 @@ class NotesController extends Controller
           'statusId' => $request->statusId,
         ]);
       }
+      public function udateNotesServices(Request $request){
+        DB::table('notes_services')
+        ->where('noteId', $request->noteId)
+        ->delete();
+        $listServicesUpdate = $request->services;
+        foreach($listServicesUpdate as $service){
+        DB::table('notes_services')
+        ->insert([
+        'noteId' => $request->noteId,
+        'servicesId' => $service["servicesId"],
+         ]);
+      }
+    }
+      
 }

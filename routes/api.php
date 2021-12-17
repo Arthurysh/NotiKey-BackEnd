@@ -37,6 +37,7 @@ Route::post('/addDiscount', 'DiscountController@addDiscount');
 Route::post('/deleteDiscount', 'DiscountController@deleteDiscount');
 Route::post('/upStatus', 'NotesController@upStatus');
 Route::post('/downStatus', 'NotesController@downStatus');
+Route::post('/udateNotesServices', 'NotesController@udateNotesServices');
 
 Route::get('/notesInfo/{userId?}', 'NotesController@view');
 Route::get('/stationInfo', 'StationController@view');
