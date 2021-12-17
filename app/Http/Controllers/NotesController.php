@@ -14,7 +14,7 @@ class NotesController extends Controller
       ->join('cars', 'notes.carId', '=', 'cars.carId')
       ->join('time', 'notes.timeId', '=', 'time.timeId')
       ->where('notes.userId', $userId->userId)
-      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status',  )
+      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status')
       ->get();
 
       foreach ($notes as $note) {
@@ -119,10 +119,11 @@ class NotesController extends Controller
     'servicesId' => $service["servicesId"],
    ]);
    DB::table('statusHistory')
+    ->take(1)
     ->insert([
     'noteId' => $lastId,
     'statusId' => '1',
-   ]);
+    ]);
 
       
    }
@@ -168,7 +169,7 @@ class NotesController extends Controller
       ->join('time', 'notes.timeId', '=', 'time.timeId')
       ->join('users', 'notes.userId', '=', 'users.userId')
       ->where('notes.stationId', $stationId->stationId)
-      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status', 'users.phone', 'users.email', 'users.name', 'users.surname' )
+      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status', 'users.phone', 'users.email', 'users.name', 'users.surname', 'status.statusId' )
       ->get();
 
       foreach ($notes as $note) {
@@ -234,6 +235,11 @@ class NotesController extends Controller
           'noteId' => $request->noteId,
           'statusId' => '1'
         ]);
+        DB::table('notes')
+        ->where('notes.noteId', $request->noteId)
+        ->update([
+          'statusId' => $request->statusId,
+        ]);
         
         
       }
@@ -242,5 +248,10 @@ class NotesController extends Controller
         ->where('noteId', $request->noteId)
         ->take(1)
         ->delete();
+        DB::table('notes')
+        ->where('notes.noteId', $request->noteId)
+        ->update([
+          'statusId' => $request->statusId,
+        ]);
       }
 }
