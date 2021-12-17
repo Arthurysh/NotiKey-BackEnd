@@ -220,6 +220,7 @@ class NotesController extends Controller
         ->get();
 
       }
+
       
       
       
@@ -227,6 +228,19 @@ class NotesController extends Controller
       
     }
 
-      
-      
+      public function upStatus(Request $request){
+        DB::table('statusHistory')
+        ->insert([
+          'noteId' => $request->noteId,
+          'statusId' => '1'
+        ]);
+        
+        
+      }
+      public function downStatus(Request $request){
+        DB::table('statusHistory')
+        ->where('noteId', $request->noteId)
+        ->take(1)
+        ->delete();
+      }
 }
