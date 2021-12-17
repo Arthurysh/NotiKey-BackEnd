@@ -246,11 +246,12 @@ class NotesController extends Controller
         ]);
         $current_date_time = Carbon::now()->toDateTimeString();
         $time = Carbon::createFromFormat('Y-m-d H:i:s', $current_date_time)->format('H:i');
+        $lastStatus = DB::table('notes')->join('status', 'notes.statusId', '=', 'status.statusId')->latest('noteId')->value('status');
         DB::table('notification')
         ->insert([
         'userId' => $request->userId,
         'title' => 'Изменения статуса',
-        'content' => "Статус вашей записи №$request->noteId был изменен на '$request->status', пожалуйста просмотрите вашу запись",
+        'content' => "Статус вашей записи №$request->noteId был изменен на '$lastStatus', пожалуйста просмотрите вашу запись",
         'time' => $time
         ]);
       }
@@ -263,6 +264,16 @@ class NotesController extends Controller
         ->where('notes.noteId', $request->noteId)
         ->update([
           'statusId' => $request->statusId,
+        ]);
+        $current_date_time = Carbon::now()->toDateTimeString();
+        $time = Carbon::createFromFormat('Y-m-d H:i:s', $current_date_time)->format('H:i');
+        $lastStatus = DB::table('notes')->join('status', 'notes.statusId', '=', 'status.statusId')->latest('noteId')->value('status');
+        DB::table('notification')
+        ->insert([
+        'userId' => $request->userId,
+        'title' => 'Изменения статуса',
+        'content' => "Статус вашей записи №$request->noteId был изменен на '$lastStatus', пожалуйста просмотрите вашу запись",
+        'time' => $time
         ]);
       }
       public function udateNotesServices(Request $request){
@@ -281,9 +292,11 @@ class NotesController extends Controller
     public function statisticNotes(Request $request){
     }
     public function getNotificationUser(Request $userId){
-      DB::table('notification')
+      $request = DB::table('notification')
       ->where('userId', $userId->userId)
       ->get();
+
+      return $request;
     }
     public function deleteNotificationUser(Request $notificationId){
       DB::table('notification')
