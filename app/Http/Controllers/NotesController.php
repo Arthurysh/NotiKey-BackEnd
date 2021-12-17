@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class NotesController extends Controller
 {
@@ -101,6 +103,7 @@ class NotesController extends Controller
         'station' => ['required'],
         'time' => ['required']
     ]);
+    $current_date_time = Carbon::now()->toDateTimeString();
 
     DB::table('notes')->insert([
         'carId' => $request->cars,
@@ -109,6 +112,7 @@ class NotesController extends Controller
         'date' => $request->date,
         'userId' => $request->userId,
         'statusId' => $request->statusId,
+        'created_at' => $current_date_time
     ]);
    $lastId = DB::table('notes')->latest('noteId')->value('noteId'); 
    $listServices = $request->services;
@@ -169,7 +173,7 @@ class NotesController extends Controller
       ->join('time', 'notes.timeId', '=', 'time.timeId')
       ->join('users', 'notes.userId', '=', 'users.userId')
       ->where('notes.stationId', $stationId->stationId)
-      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status', 'users.phone', 'users.email', 'users.name', 'users.surname', 'status.statusId' )
+      ->select('notes.noteId', 'stations.stationName', 'stations.adress',  'cars.brand', 'cars.model', 'notes.date',  'time.time',  'status.status', 'users.phone', 'users.email', 'users.name', 'users.surname', 'status.statusId', 'users.userId' )
       ->get();
 
       foreach ($notes as $note) {
@@ -240,8 +244,15 @@ class NotesController extends Controller
         ->update([
           'statusId' => $request->statusId,
         ]);
-        
-        
+        $current_date_time = Carbon::now()->toDateTimeString();
+        $time = Carbon::createFromFormat('Y-m-d H:i:s', $current_date_time)->format('H:i');
+        DB::table('notification')
+        ->insert([
+        'userId' => $request->userId,
+        'title' => 'Изменения статуса',
+        'content' => "Статус вашей записи №$request->noteId был изменен на '$request->status', пожалуйста просмотрите вашу запись",
+        'time' => $time
+        ]);
       }
       public function downStatus(Request $request){
         DB::table('statusHistory')
@@ -267,5 +278,18 @@ class NotesController extends Controller
          ]);
       }
     }
+    public function statisticNotes(Request $request){
+    }
+    public function getNotificationUser(Request $userId){
+      DB::table('notification')
+      ->where('userId', $userId->userId)
+      ->get();
+    }
+    public function deleteNotificationUser(Rrequest $notificationId){
+      DB::table('notification')
+      ->where('notificationId', $notificationId->notificationId)
+      ->delete();
+    }
+    
       
 }

@@ -38,6 +38,7 @@ Route::post('/deleteDiscount', 'DiscountController@deleteDiscount');
 Route::post('/upStatus', 'NotesController@upStatus');
 Route::post('/downStatus', 'NotesController@downStatus');
 Route::post('/udateNotesServices', 'NotesController@udateNotesServices');
+Route::post('/deleteNotificationUser', 'NotesController@deleteNotificationUser');
 
 Route::get('/notesInfo/{userId?}', 'NotesController@view');
 Route::get('/stationInfo', 'StationController@view');
@@ -55,6 +56,9 @@ Route::get('/getCarList', 'CarsController@getCarList');
 Route::get('/getUsersList', 'UpdateUserController@getUsersList');
 Route::get('/getListNotesUsers', 'NotesController@getListNotesUsers');
 Route::get('/managerViewNotes/{stationId?}', 'NotesController@managerViewNotes');
+Route::get('/statisticNotes', 'NotesController@statisticNotes');
+Route::get('/getNotificationUser/{userId?}', 'NotesController@getNotificationUser');
+
 
 
 
