@@ -285,7 +285,7 @@ class NotesController extends Controller
       ->where('userId', $userId->userId)
       ->get();
     }
-    public function deleteNotificationUser(Rrequest $notificationId){
+    public function deleteNotificationUser(Request $notificationId){
       DB::table('notification')
       ->where('notificationId', $notificationId->notificationId)
       ->delete();
