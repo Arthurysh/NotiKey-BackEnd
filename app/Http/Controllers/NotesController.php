@@ -122,17 +122,17 @@ class NotesController extends Controller
     'noteId' => $lastId,
     'servicesId' => $service["servicesId"],
    ]);
-   DB::table('statusHistory')
-    ->take(1)
-    ->insert([
-    'noteId' => $lastId,
-    'statusId' => '1',
-    ]);
+   
 
       
    }
 
-
+   DB::table('statusHistory')
+   ->take(1)
+   ->insert([
+   'noteId' => $lastId,
+   'statusId' => '1',
+   ]);
     }
     public function deleteNotes(Request $request){
       DB::table('additionalServices')
