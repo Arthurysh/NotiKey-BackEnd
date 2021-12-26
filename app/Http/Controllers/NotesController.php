@@ -303,6 +303,24 @@ class NotesController extends Controller
       ->where('notificationId', $notificationId->notificationId)
       ->delete();
     }
-    
-      
+    public function getStatistic(){
+      $months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      $notesStatistic = [];
+      foreach ($months as $key => $value) {
+        $montCurrentPrice = 0;
+        $currentMonthNotesId = DB::table('notes')
+        ->whereMonth('created_at', $value)
+        ->select('noteId')
+        ->get();
+        foreach ($currentMonthNotesId as $point) {
+          $montCurrentPrice += DB::table('notes')
+          ->join('notes_services', 'notes.noteId', '=', 'notes_services.noteId')
+          ->join('services', 'notes_services.servicesId', '=', 'services.servicesId')
+          ->where('notes.noteId', $point->noteId)
+          ->sum('services.price');
+        }
+        array_push($notesStatistic, $montCurrentPrice);
+      }
+      return $notesStatistic;
+    }   
 }

@@ -58,6 +58,14 @@ Route::get('/getListNotesUsers', 'NotesController@getListNotesUsers');
 Route::get('/managerViewNotes/{stationId?}', 'NotesController@managerViewNotes');
 Route::get('/statisticNotes', 'NotesController@statisticNotes');
 Route::get('/getNotificationUser/{userId?}', 'NotesController@getNotificationUser');
+Route::get('/getStatistic', 'StationController@getStatistic');
+Route::get('/getUserStatistic', 'UpdateUserController@getUserStatistic');
+Route::get('/getCashStatistic', 'NotesController@getStatistic');
+
+
+
+
+
 
 
 
